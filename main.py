@@ -1,3 +1,5 @@
+import csv
+
 class Item:
     pay_rate = 0.8 # discount rate of 20%
     all = [] # this list will contain every generated item
@@ -18,19 +20,25 @@ class Item:
     def calculate_total_price (self):
         return self.price * self.quantity
     
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('store_data.csv', 'r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+        
+        # initiate each item from the file to the class 
+        for item in items:
+            Item(
+                name= item["name"],
+                price=float(item["price"]),
+                quantity= int(item["quantity"])     
+            )
+
+    
     def __repr__(self):
-        return F"Item '{self.name}' '{self.price}' '{self.quantity}'"
+        return F"Item '{self.name}', '{self.price}', '{self.quantity}'."
     
 
-
-item1 = Item("Phone", 100, 1)
-item2 = Item("Laptop", 1000, 3)
-item3 = Item("Cable", 10, 5)
-item4 = Item("Mouse", 50, 5)
-item5 = Item("Keyboard", 75, 5)
-
-for item in Item.all:
-    print(item)
-
+Item.instantiate_from_csv()
 print(Item.all)
 
