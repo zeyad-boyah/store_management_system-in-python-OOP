@@ -1,5 +1,6 @@
 class Item:
     pay_rate = 0.8 # discount rate of 20%
+    all = [] # this list will contain every generated item
 
     def __init__(self, name: str, price: float , quantity = 0):
         # validations 
@@ -10,9 +11,15 @@ class Item:
         self.name = name
         self.price = price
         self.quantity = quantity
+
+        # actions
+        Item.all.append(self) 
     
     def calculate_total_price (self):
         return self.price * self.quantity
+    
+    def __repr__(self):
+        return F"Item '{self.name}' '{self.price}' '{self.quantity}'"
     
 
 
@@ -21,4 +28,9 @@ item2 = Item("Laptop", 1000, 3)
 item3 = Item("Cable", 10, 5)
 item4 = Item("Mouse", 50, 5)
 item5 = Item("Keyboard", 75, 5)
+
+for item in Item.all:
+    print(item)
+
+print(Item.all)
 
