@@ -1,4 +1,5 @@
 import csv
+from os import name
 
 
 class Item:
@@ -13,7 +14,7 @@ class Item:
         ), f"the quantity {quantity} is not bigger than or equal to zero"
 
         # assignment
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
 
@@ -36,6 +37,14 @@ class Item:
                 price=float(item["price"]),
                 quantity=int(item["quantity"]),
             )
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        self.__name = value
 
     @staticmethod
     def is_integer(num):
