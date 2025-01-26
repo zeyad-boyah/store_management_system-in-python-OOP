@@ -49,8 +49,18 @@ class Item:
             return False
 
     def __repr__(self):
-        return f"Item '{self.name}', '{self.price}', '{self.quantity}'."
+        return f"{self.__class__.__name__} '{self.name}', '{self.price}', '{self.quantity}'."
+    
+class Phone(Item):
+    def __init__(self, name, price, quantity=0, broken_phones:int =0):
+        super().__init__(
+            name, price, quantity
+            )
+        assert broken_phones>= 0, f"Broken phones aren't bigger than or equal to zero"
+        
+        self.broken_phones = broken_phones
 
 
 Item.instantiate_from_csv()
+phone1 = Phone('susphone1',500,5,1)
 print(Item.all)
