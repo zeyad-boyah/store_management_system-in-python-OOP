@@ -15,14 +15,24 @@ class Item:
 
         # assignment
         self.__name = name
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
         # actions
         Item.all.append(self)
 
+    @property
+    def price(self):
+        return self.__price
+    
+    def price_increment(self,value):
+        self.__price = self.__price * value
+
+    def apply_discount(self):
+        self.__price = self.__price * self.pay_rate
+
     def calculate_total_price(self):
-        return self.price * self.quantity
+        return self.__price * self.quantity
 
     @classmethod
     def instantiate_from_csv(cls):
@@ -58,4 +68,4 @@ class Item:
             return False
 
     def __repr__(self):
-        return f"{self.__class__.__name__} '{self.name}', '{self.price}', '{self.quantity}'."
+        return f"{self.__class__.__name__} '{self.name}', '{self.__price}', '{self.quantity}'."
